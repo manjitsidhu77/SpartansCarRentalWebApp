@@ -61,5 +61,95 @@
 
 </body>
 
+<script>
+    let form = document.getElementById("register")
+    let email = document.getElementById("email")
+    let pass = document.getElementById("pass")
+    let name = document.getElementById("name")
+  
+    let gender = document.querySelector('input[name="gender"]:checked').value
+    let db;
+
+    window.onload = function () {
+        let dbReq = indexedDB.open('Manjitdb', 1);
+
+        form.onsubmit = register
+        dbReq.onupgradeneeded = function (event) {
+            // Set the db variable to our database so we can use it!
+            db = event.target.result;
+            let storeUser = db.createObjectStore('users', {keyPath: 'email'});
+            storeUser.createIndex('pass', 'pass', {unique: false});
+            storeUser.createIndex('cellno','cellno',{unique: false});
+            storeUser.createIndex('gender', 'gender', {unique: false});
+           
+
+            let storeBooking = db.createObjectStore('booking',  { keyPath: 'booking_id', autoIncrement:true });
+            storeBooking.createIndex('email', 'email', { unique: false });
+            storeBooking.createIndex('name', 'name', { unique: false });
+            storeBooking.createIndex('from', 'from', { unique: false });
+            storeBooking.createIndex('to', 'to', { unique: false });
+           
+        }
+        dbReq.onsuccess = function (event) {
+            db = event.target.result;
+        }
+        dbReq.onerror = function (event) {
+            alert('error opening database ' + event.target.errorCode);
+        }
+        function register(e) {
+            e.preventDefault()
+            if (confirm) {
+                let userData = {
+                    email: email.value,
+                    pass: pass.value,
+                    name: name.value,
+                    gender: gender,
+                }
+                let transaction = db.transaction(['users'], 'readwrite')
+                let objectStore = transaction.objectStore('users')
+                objectStore.add(userData).onsuccess  = function () {
+                    alert("Registration Successful");
+
+                    window.location.href = "login.html";
+
+                };
+                transaction.oncomplete = function () {
+                    console.log('Transaction Completed');
+
+                };
+                transaction.onerror = function () {
+                    console.log('Transaction Error');
+                };
+            }
+        }
+    }
+
+    //Reference https://css-tricks.com/display-form/
+    $("form input").change(function () {
+        var numValid = 0;
+        $("form input[required]").each(function () {
+            if (this.validity.valid) {
+                numValid++;
+            }
+        });
+        const progress = $("#progress");
+        if (numValid === 0) {
+            progress.attr("value", "0");
+        }
+        if (numValid === 1) {
+            progress.attr("value", "25");
+        }
+        if (numValid === 2) {
+            progress.attr("value", "50");
+        }
+        if (numValid === 3) {
+            progress.attr("value", "75");
+        }
+        if (numValid === 4) {
+            progress.attr("value", "100");
+        }
+    });
+</script>
+
       
 </html>
