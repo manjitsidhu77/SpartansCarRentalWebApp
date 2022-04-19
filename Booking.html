@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spartans Car Rental</title>
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="header">
+    <h1>Spartans Car Rental</h1>
+</div>
+<div class="row">
+    <div class="col-3 col-s-3 menu">
+        <ul>
+            <li>Welcome <script>document.write(localStorage.getItem("currentUserName"))</script></li>
+            <a href="booking.html"><li>Rent Car</li></a>
+            <a href="manage.html"><li>Manage Bookings</li></a>
+            <a href="index.html"><li>Logout</li></a>
+        </ul>
+    </div>
+    <div class="col-6 col-s-9">
+        <h2>Rent Car</h2>
+        <div class="container">
+        <form id="booking">
+            <label for="from">From </label>
+            <input type="date" id="from" placeholder="From" required/>
+            <label for="to">To </label>
+            <input type="date" id="to" placeholder="To" required/>
+            <label for="to">Choose Car </label>
+            <select id="Select Car" name="Select Car">
+                <option value="Hyundai Elantra">Hyundai Elantra $15/day</option>
+                <option value="Volkswagen Jetta">Volkswagen Jetta $15/day</option>
+                <option value="Honda Accord">Honda Accord $17/day</option>
+                <option value="Toyota Highlander">Toyota Highlander $25/day</option>
+                <option value="Jeep Wrangler">Jeep Wrangler $25/day</option>
+                <option value="LandRover RangeRover">LandRover RangeRover $30/day</option>
+                <option value="Dodge GrandCaravan">Dodge GrandCaravan $45/day</option>
+                <option value="Ford Escape ">Ford Escape $50/day</option>
+                <option value="Ford Mustang">Ford Mustang $35/day</option>
+
+
+
+            </select>
+            <label for="person">Person</label>
+            <select id="person" name="Person">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
+            <input type="reset" id="reset" class="btn" value="Clear All">
+            <button id="submit">Book</button>
+        </form>
+        </div>
+    </div>
+    <div class="col-3 col-s-12">
+        <div class="aside">
+            <h2>Take advantage of our EV specials.</h2>
+            <img src="images/EV.jpeg" />
+
+            <p class="text">We also assure you to provide the best car rentals deals and 
+                packages on electronic vehicles which are helpfull in saving the environment.
+                <br>
+               Moreover, you get these vehicles on rent at resonable prices as compared 
+               to the other car rentals which provide Electonic vehicles.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>&copy; Copyright 2022, Spartans Car Rental</p>
+</div>
+
+</body>
