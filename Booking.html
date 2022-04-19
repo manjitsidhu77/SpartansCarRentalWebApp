@@ -15,7 +15,7 @@
         <ul>
             <li>Welcome <script>document.write(localStorage.getItem("currentUserName"))</script></li>
             <a href="booking.html"><li>Rent Car</li></a>
-            <a href="Manage Booking.html"><li>Manage Bookings</li></a>
+            <a href="Manage.html"><li>Manage Bookings</li></a>
             <a href="index.html"><li>Logout</li></a>
         </ul>
     </div>
@@ -75,5 +75,57 @@
 <div class="footer">
     <p>&copy; Copyright 2022, Spartans Car Rental</p>
 </div>
+
+<script>
+    if(localStorage.getItem("currentUser") === null){
+        alert("You have to login")
+        window.location.href = "index.html";
+    }
+    let form = document.getElementById("booking")
+    let email = localStorage.getItem("currentUser")
+    let name = localStorage.getItem("currentUserName")
+    let from = document.getElementById("from")
+    let to = document.getElementById("to")
+    let person = document.getElementById("person")
+   
+    let db;
+
+    window.onload = function() {
+        let request = window.indexedDB.open('Manjitdb', 1)
+        request.onerror = function () {
+        };
+        request.onsuccess = function () {
+            db = request.result;
+        };
+        form.onsubmit = booking;
+
+        function booking(e) {
+            let bookingData = {
+                from: from.value,
+                to: to.value,
+                name: name,
+                email: email,
+                person: person.value,
+               
+            }
+            let transaction = db.transaction(['booking'], 'readwrite')
+            let objectStore = transaction.objectStore('booking')
+            objectStore.add(bookingData).onsuccess  = function () {
+                alert("Book Successful");
+
+                window.location.href = "manage.html";
+
+            };
+            transaction.oncomplete = function () {
+                console.log('Transaction completed: database modification finished.');
+
+            };
+            transaction.onerror = function () {
+                console.log('Transaction not opened due to error');
+            };
+        }
+    }
+
+</script>
 
 </body>
