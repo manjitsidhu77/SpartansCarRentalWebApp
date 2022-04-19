@@ -50,5 +50,42 @@
 </div>
 
 </body>
+<script>
+    let form = document.getElementById("login")
+    let email = document.getElementById("email")
+    let pass = document.getElementById("pass")
+    let db;
 
+    window.onload = function() {
+        let request = window.indexedDB.open('Manjitdb', 1)
+        request.onerror = function() {
+        };
+        request.onsuccess = function() {
+            db = request.result;
+        };
+        form.onsubmit = login;
+        function login(e){
+            e.preventDefault()
+            let transaction = db.transaction(['users'], 'readonly');
+            let objectStore = transaction.objectStore('users');
+            let req = objectStore.get(email.value).onsuccess = function (e) {
+                let result = e.target.result
+                if (result !== undefined){
+                    if(pass.value === result.pass){
+                        alert("Login Success")
+                        localStorage.setItem("currentUser",email.value);
+                        localStorage.setItem("currentUserName",result.name)
+                        window.location.href = "booking.html";
+                    }
+                    else{
+                        alert("Wrong Password")
+                    }
+                }
+                else {
+                    alert("Wrong Email")
+                }
+            }
+        }
+    }
+</script>
 </html>
