@@ -20,7 +20,7 @@ h6 {
     font-weight: 500;
     text-transform: none;
 }
-input[type=text],input[type=date],input[type=password],input[type=email],input[type=url],input[type=number], select, textarea {
+input[type=text],input[type=date],input[type=password],input[type=email],input[type=number], select, textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
